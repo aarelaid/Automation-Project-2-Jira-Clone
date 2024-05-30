@@ -11,21 +11,21 @@ describe('Issue delete', () => {
     cy.visit('/');
     cy.url().should('eq', `${Cypress.env('baseUrl')}project/board`).then((url) => {
     cy.contains(issueTitle).click();
-    IssueModal.getIssueDetailModal.should('be.visible')
+    IssueModal.getIssueDetailModal().should('be.visible')
     });
   });
 
-  it('Should delete issue successfully', () => {
-  IssueModal.clickDeleteButton;
-  IssueModal.confirmDeletion;
-  IssueModal.ensureIssueIsNotVisibleOnBoard(issueTitle);
-  IssueModal.validateIssueVisibilityState(false);
+  it("Should delete issue successfully", () => {
+    IssueModal.clickDeleteButton();
+    IssueModal.confirmDeletion();
+    IssueModal.ensureIssueIsNotVisibleOnBoard(issueTitle);
+    IssueModal.validateIssueVisibilityState(issueTitle, false);
   });
 
-  it('Should cancel deletion process successfully', () => {
-  IssueModal.clickDeleteButton;
-  IssueModal.confirmDeletion;
-  IssueModal.ensureIssueIsVisibleOnBoard(issueTitle);
-  IssueModal.validateIssueVisibilityState(true);
+  it("Should cancel deletion process successfully", () => {
+    IssueModal.clickDeleteButton();
+    IssueModal.cancelDeletion();
+    IssueModal.closeDetailModal();
+    IssueModal.validateIssueVisibilityState(issueTitle, true);
   });
 });
