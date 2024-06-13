@@ -91,6 +91,12 @@ class IssueModal {
             cy.contains(issueTitle).should('not.exist');
     }
 
+    validateAmountofIssuesInTheBacklogList(amountOfIssues){
+        cy.get(this.backLogList).within(() => {
+        cy.get(issuesList).should('have.length',amountOfIssues)
+    });
+    }
+    
     clickDeleteButton() {
         cy.get(this.deleteButton).click();
         cy.get(this.confirmationPopup).should('be.visible');

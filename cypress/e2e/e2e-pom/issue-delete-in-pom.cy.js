@@ -16,16 +16,24 @@ describe('Issue delete', () => {
   });
 
   it("Should delete issue successfully", () => {
+  
+    const expectedAmountOfIssuesAfterDeletion = 3
+
     IssueModal.clickDeleteButton();
     IssueModal.confirmDeletion();
     IssueModal.ensureIssueIsNotVisibleOnBoard(issueTitle);
-    IssueModal.validateIssueVisibilityState(issueTitle, false);
+    IssueModal.validateIssueVisibilityState(issueTitle,true);
+    IssueModal.validateAmountofIssuesInTheBacklogList(expectedAmountOfIssuesAfterDeletion)
   });
 
   it("Should cancel deletion process successfully", () => {
+
+    const expectedAmountOfIssuesAfterCancel = 4
+
     IssueModal.clickDeleteButton();
     IssueModal.cancelDeletion();
     IssueModal.closeDetailModal();
-    IssueModal.validateIssueVisibilityState(issueTitle, true);
+    IssueModal.validateIssueVisibilityState(issueTitle,false);
+    IssueModal.validateAmountofIssuesInTheBacklogList(expectedAmountOfIssuesAfterCancel)
   });
 });
